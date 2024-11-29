@@ -11,7 +11,6 @@ node_modules
 /dist
 /dist-split
 /dist-ssr
-/bin
 *.local
 
 # Editor directories and files

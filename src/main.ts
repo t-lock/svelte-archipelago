@@ -1,12 +1,19 @@
 import { hydrate } from "svelte";
 import "./app.css";
-import Counter from "./lib/Counter.svelte";
 
-const app = hydrate(Counter, {
-  target: document.getElementById("app")!,
-});
+//@ts-expect-error
+window.hydrate = hydrate;
+console.log("executing main");
 
 const modules = import.meta.glob("./lib/**/*.svelte");
-Object.keys(modules).forEach((path) => modules[path]());
+console.log(modules);
 
-export default app;
+["Counter", "Counter2"].forEach(async (name) => {
+  try {
+    const Component = (await import(`./lib/${name}.svelte`)).default;
+    const target = document.querySelector(`#${name}`);
+    if (target) hydrate(Component, { target }); //! no props, so this isn't real
+  } catch (error) {
+    console.error(error);
+  }
+});

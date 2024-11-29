@@ -9,11 +9,12 @@ export default defineConfig({
     minify: false,
     rollupOptions: {
       input: "./src/main-split.ts",
-      treeshake: false,
+      // treeshake: false,
       output: {
         dir: "dist-split",
         format: "esm",
-        chunkFileNames: ({ facadeModuleId }) => {
+        chunkFileNames: ({ facadeModuleId, ...rest }) => {
+          console.log({ facadeModuleId, rest });
           if (facadeModuleId) {
             const name = facadeModuleId
               .replace(resolve(__dirname, "src") + "/", "")
