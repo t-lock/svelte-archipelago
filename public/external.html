@@ -25,11 +25,42 @@
             background-color: rebeccapurple;
           }
         </style>
-        <button class="fancy svelte-hkfi0m">count is 42</button>
+        <button class="fancy svelte-hkfi0m">local count is 42</button>
+        <button>global count is 0</button>
         <script type="module">
-          import("/lib/Counter-oT-nlD_8.js").then((module) => {
+          import("/lib/Counter-DvDOcqVT.js").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter");
+
+            let props = {};
+
+            if (target.firstElementChild?.tagName === "SCRIPT") {
+              props = JSON.parse(target.firstElementChild.textContent ?? "{}");
+              // ? server only prop option (idea)
+              // props.mode = "csr";
+            }
+
+            hydrate(Component, {
+              target,
+              props: props,
+            });
+          });
+        </script>
+      </div>
+      <!-- Counter Again -->
+      <div id="/lib/Counter[repeat]" style="display: contents">
+        <style>
+          .fancy.svelte-hkfi0m {
+            color: pink;
+            background-color: rebeccapurple;
+          }
+        </style>
+        <button class="fancy svelte-hkfi0m">local count is 42</button>
+        <button>global count is 0</button>
+        <script type="module">
+          import("/lib/Counter-DvDOcqVT.js").then((module) => {
+            const Component = module.default;
+            const target = document.getElementById("/lib/Counter[repeat]");
 
             let props = {};
 
