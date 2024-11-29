@@ -8,7 +8,7 @@
     "build:normal": "vite build",
     "build:split": "vite build --config vite.split.config.ts",
     "build:compiled": "vite build --config vite.compiled.config.ts",
-    "build": "npm run build:normal && npm run build:compiled",
+    "build": "npm run build:normal",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },

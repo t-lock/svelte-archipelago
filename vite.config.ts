@@ -4,7 +4,13 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte()],
+  plugins: [
+    svelte({
+      compilerOptions: {
+        css: "injected",
+      },
+    }),
+  ],
   // uses index.html as the entry point. This is a problem for us
   // build: {
   //   rollupOptions: {
@@ -18,8 +24,7 @@ export default defineConfig({
       input: "./src/main.ts",
       output: {
         format: "esm",
-        chunkFileNames: ({ facadeModuleId, ...rest }) => {
-          console.log({ facadeModuleId, rest });
+        chunkFileNames: ({ facadeModuleId }) => {
           if (facadeModuleId) {
             const name = facadeModuleId
               .replace(resolve(__dirname, "src") + "/", "")

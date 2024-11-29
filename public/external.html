@@ -27,7 +27,7 @@
         </style>
         <button class="fancy svelte-hkfi0m">count is 42</button>
         <script type="module">
-          import("/lib/Counter-CpTnX_8i.js").then((module) => {
+          import("/lib/Counter-DkRrAnBA.js").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter");
 
@@ -39,12 +39,12 @@
               // props.mode = "csr";
             }
 
+            console.log("hydrating");
             hydrate(Component, {
               target,
               props: props,
             });
           });
-          console.log("executing inline module");
         </script>
       </div>
 
@@ -58,7 +58,7 @@
         </style>
         <button class="fancy svelte-1f35gn7">count is 42</button>
         <script type="module">
-          import("/lib/Counter2-q92e0gQF.js").then((module) => {
+          import("/lib/Counter2-DTInJnBe.js").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter2");
 
@@ -70,12 +70,43 @@
               // props.mode = "csr";
             }
 
+            console.log("hydrating");
             hydrate(Component, {
               target,
               props: props,
             });
           });
-          console.log("executing inline module");
+        </script>
+      </div>
+
+      <!-- Child of a same name -->
+      <div id="/lib/child/Counter" style="display: contents">
+        <style>
+          .fancy.svelte-joc1dw {
+            color: red;
+            background-color: blue;
+          }
+        </style>
+        <button class="fancy svelte-joc1dw">count is 42</button>
+        <script type="module">
+          import("/lib/child/Counter-CjpADn-s.js").then((module) => {
+            const Component = module.default;
+            const target = document.getElementById("/lib/child/Counter");
+
+            let props = {};
+
+            if (target.firstElementChild?.tagName === "SCRIPT") {
+              props = JSON.parse(target.firstElementChild.textContent ?? "{}");
+              // ? server only prop option (idea)
+              // props.mode = "csr";
+            }
+
+            console.log("hydrating");
+            hydrate(Component, {
+              target,
+              props: props,
+            });
+          });
         </script>
       </div>
     </div>
