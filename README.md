@@ -1,1 +1,1 @@
-Svelte Sidecar
+Svelte Archipelago
