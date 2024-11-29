@@ -1,22 +1,23 @@
 import { hydrate } from "svelte";
 import "./app.css";
 
+/**
+ * Expose hydrate on global scope
+ *
+ * TODO - research
+ * This runs in the browser because our modules produced below call back to this,
+ * we don't actually include it directly (but I think we do need to in dev mode)
+ *
+ * ? is there a better way here, where we explicitly add only the hydrater (in prod and dev),
+ * ? and have our entry point here only produce the bundles, and never be loaded
+ * ? in the browser?
+ */
+
 //@ts-expect-error
 window.hydrate = hydrate;
-console.log("executing main");
 
-const modules = import.meta.glob("./lib/**/*.svelte");
-console.log(modules);
-
+// Produce module bundle
 if (typeof window === "undefined") {
-  ["Counter", "Counter2", "child/Counter"].forEach(async (name) => {
-    try {
-      const Component = (await import(`./lib/${name}.svelte`)).default;
-      const target = document.querySelector(`#${name}`);
-      console.log("hyrdating");
-      if (target) hydrate(Component, { target }); //! no props, so this isn't real
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const modules = import.meta.glob("./lib/**/*.svelte");
+  Object.keys(modules).forEach((name) => import(name));
 }

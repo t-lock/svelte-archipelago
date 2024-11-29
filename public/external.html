@@ -27,7 +27,7 @@
         </style>
         <button class="fancy svelte-hkfi0m">count is 42</button>
         <script type="module">
-          import("/lib/Counter-DkRrAnBA.js").then((module) => {
+          import("/lib/Counter-oT-nlD_8.js").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter");
 
@@ -39,7 +39,6 @@
               // props.mode = "csr";
             }
 
-            console.log("hydrating");
             hydrate(Component, {
               target,
               props: props,
@@ -49,7 +48,7 @@
       </div>
 
       <!-- Counter2 -->
-      <div id="/lib/Counter2" style="display: contents">
+      <!-- <div id="/lib/Counter2" style="display: contents">
         <style>
           .fancy.svelte-1f35gn7 {
             color: orchid;
@@ -70,17 +69,16 @@
               // props.mode = "csr";
             }
 
-            console.log("hydrating");
             hydrate(Component, {
               target,
               props: props,
             });
           });
         </script>
-      </div>
+      </div> -->
 
       <!-- Child of a same name -->
-      <div id="/lib/child/Counter" style="display: contents">
+      <!-- <div id="/lib/child/Counter" style="display: contents">
         <style>
           .fancy.svelte-joc1dw {
             color: red;
@@ -101,14 +99,13 @@
               // props.mode = "csr";
             }
 
-            console.log("hydrating");
             hydrate(Component, {
               target,
               props: props,
             });
           });
         </script>
-      </div>
+      </div> -->
     </div>
   </body>
 </html>
