@@ -13,8 +13,10 @@ import "./app.css";
  * ? in the browser?
  */
 
-//@ts-expect-error
-window.hydrate = hydrate;
+if (typeof window !== "undefined") {
+  //@ts-expect-error
+  window.hydrate = hydrate;
+}
 
 // Produce module bundle
 if (typeof window === "undefined") {

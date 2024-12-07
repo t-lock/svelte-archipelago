@@ -7,19 +7,19 @@
     "dev": "vite",
     "build:normal": "vite build",
     "build:split": "vite build --config vite.split.config.ts",
-    "build:compiled": "vite build --config vite.compiled.config.ts",
-    "build": "npm run build:normal",
+    "build:ssr": "vite build --config vite.ssr.config.ts",
+    "build": "npm run build:normal && npm run build:ssr",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^4.0.1",
     "@tsconfig/svelte": "^5.0.4",
+    "@types/node": "^20.14.11",
     "svelte": "^5.2.7",
     "svelte-check": "^4.1.0",
     "tslib": "^2.8.1",
     "typescript": "^5.7.2",
-    "vite": "^5.4.11",
-    "@types/node": "^20.14.11"
+    "vite": "^5.4.11"
   }
 }

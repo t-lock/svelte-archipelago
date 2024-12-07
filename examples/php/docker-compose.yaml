@@ -8,6 +8,8 @@ services:
     command: sh -c "npm install && npm start"
     networks:
       - lemp-network
+    environment:
+      - SVELTE_SRC_PATH=/var/www/html/dist-ssr
 
   nginx:
     image: nginx:alpine

@@ -1,4 +1,7 @@
 import { createServer } from "http";
+import { svelteSSR } from "./renderer.js";
+
+const srcPath = process.env.SVELTE_SRC_PATH;
 
 const server = createServer((req, res) => {
   res.setHeader("Content-Type", "application/json");
@@ -20,9 +23,13 @@ const server = createServer((req, res) => {
 
   req.on("end", () => {
     try {
-      const data = { "node says": JSON.parse(body) };
-      res.statusCode = 200;
-      res.end(JSON.stringify(data));
+      import(`${srcPath}/lib/Counter.js`).then((mod) => {
+        const Component = mod.default;
+        const props = body.length ? JSON.parse(body) : undefined;
+        const rendered = svelteSSR(Component, props);
+        res.statusCode = 200;
+        res.end(JSON.stringify(rendered));
+      });
     } catch (error) {
       res.statusCode = 400;
       res.end(
