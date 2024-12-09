@@ -1,14 +1,11 @@
 {
-  "name": "vite-project",
+  "name": "svelte-archipelago-project",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:normal": "vite build",
-    "build:split": "vite build --config vite.split.config.ts",
-    "build:ssr": "vite build --config vite.ssr.config.ts",
-    "build": "npm run build:normal && npm run build:ssr",
+    "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
