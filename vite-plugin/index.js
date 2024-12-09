@@ -1,7 +1,15 @@
 import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { resolve } from "path";
 
-export function svelteArchipelago() {
+const frameworkPlugin = () => {
+  return [
+    process.env.NODE_ENV === "development" ? svelte() : svelteArchipelago(),
+  ];
+};
+
+export default frameworkPlugin;
+
+function svelteArchipelago() {
   let buildComplete = false;
 
   return {
