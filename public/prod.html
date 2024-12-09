@@ -28,7 +28,7 @@
         <button class="fancy svelte-hkfi0m">local count is 42</button>
         <button>global count is 0</button>
         <script type="module">
-          import("/lib/Counter-DvDOcqVT.js").then((module) => {
+          import("/lib/Counter.js").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter");
 
@@ -47,6 +47,7 @@
           });
         </script>
       </div>
+
       <!-- Counter Again -->
       <div id="/lib/Counter[repeat]" style="display: contents">
         <style>
@@ -58,7 +59,7 @@
         <button class="fancy svelte-hkfi0m">local count is 42</button>
         <button>global count is 0</button>
         <script type="module">
-          import("/lib/Counter-DvDOcqVT.js").then((module) => {
+          import("/lib/Counter.js").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter[repeat]");
 
@@ -79,7 +80,7 @@
       </div>
 
       <!-- Counter2 -->
-      <!-- <div id="/lib/Counter2" style="display: contents">
+      <div id="/lib/Counter2" style="display: contents">
         <style>
           .fancy.svelte-1f35gn7 {
             color: orchid;
@@ -88,7 +89,7 @@
         </style>
         <button class="fancy svelte-1f35gn7">count is 42</button>
         <script type="module">
-          import("/lib/Counter2-DTInJnBe.js").then((module) => {
+          import("/lib/Counter2.js").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter2");
 
@@ -106,10 +107,10 @@
             });
           });
         </script>
-      </div> -->
+      </div>
 
       <!-- Child of a same name -->
-      <!-- <div id="/lib/child/Counter" style="display: contents">
+      <div id="/lib/child/Counter" style="display: contents">
         <style>
           .fancy.svelte-joc1dw {
             color: red;
@@ -118,7 +119,7 @@
         </style>
         <button class="fancy svelte-joc1dw">count is 42</button>
         <script type="module">
-          import("/lib/child/Counter-CjpADn-s.js").then((module) => {
+          import("/lib/child/Counter.js").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/child/Counter");
 
@@ -136,7 +137,7 @@
             });
           });
         </script>
-      </div> -->
+      </div>
     </div>
   </body>
 </html>

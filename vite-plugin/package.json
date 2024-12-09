@@ -1,0 +1,12 @@
+{
+  "name": "vite-plugin-svelte-archipelago",
+  "version": "0.0.1",
+  "description": "Svelte island bundler supporting csr and ssr",
+  "type": "module",
+  "author": "t-lock",
+  "license": "MIT",
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.1",
+    "vite": "^6.0.3"
+  }
+}

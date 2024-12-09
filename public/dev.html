@@ -5,7 +5,8 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Svelte + TS</title>
-    <link rel="stylesheet" href="/assets/main-CvXgI8xD.css" />
+    <link rel="stylesheet" href="/src/app.css" />
+    <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
     <div
@@ -28,7 +29,7 @@
         <button class="fancy svelte-hkfi0m">local count is 42</button>
         <button>global count is 0</button>
         <script type="module">
-          import("/lib/Counter-DvDOcqVT.js").then((module) => {
+          import("/src/lib/Counter.svelte").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter");
 
@@ -47,6 +48,7 @@
           });
         </script>
       </div>
+
       <!-- Counter Again -->
       <div id="/lib/Counter[repeat]" style="display: contents">
         <style>
@@ -58,7 +60,7 @@
         <button class="fancy svelte-hkfi0m">local count is 42</button>
         <button>global count is 0</button>
         <script type="module">
-          import("/lib/Counter-DvDOcqVT.js").then((module) => {
+          import("/src/lib/Counter.svelte").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter[repeat]");
 
@@ -79,7 +81,7 @@
       </div>
 
       <!-- Counter2 -->
-      <!-- <div id="/lib/Counter2" style="display: contents">
+      <div id="/lib/Counter2" style="display: contents">
         <style>
           .fancy.svelte-1f35gn7 {
             color: orchid;
@@ -88,7 +90,7 @@
         </style>
         <button class="fancy svelte-1f35gn7">count is 42</button>
         <script type="module">
-          import("/lib/Counter2-DTInJnBe.js").then((module) => {
+          import("/src/lib/Counter2.svelte").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/Counter2");
 
@@ -106,10 +108,10 @@
             });
           });
         </script>
-      </div> -->
+      </div>
 
       <!-- Child of a same name -->
-      <!-- <div id="/lib/child/Counter" style="display: contents">
+      <div id="/lib/child/Counter" style="display: contents">
         <style>
           .fancy.svelte-joc1dw {
             color: red;
@@ -118,7 +120,7 @@
         </style>
         <button class="fancy svelte-joc1dw">count is 42</button>
         <script type="module">
-          import("/lib/child/Counter-CjpADn-s.js").then((module) => {
+          import("/src/lib/child/Counter.svelte").then((module) => {
             const Component = module.default;
             const target = document.getElementById("/lib/child/Counter");
 
@@ -136,7 +138,7 @@
             });
           });
         </script>
-      </div> -->
+      </div>
     </div>
   </body>
 </html>
