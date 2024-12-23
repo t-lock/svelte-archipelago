@@ -1,0 +1,146 @@
+/<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Svelte + TS</title>
+
+    <link rel="stylesheet" href="./app.css" />
+    <!-- ! required in dev mode -->
+    <script type="module" src="/@hydrate"></script>
+  </head>
+  <body>
+    <div
+      style="
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <!-- Counter -->
+      <div id="/lib/Counter" style="display: contents">
+        <style>
+          .fancy.svelte-hkfi0m {
+            color: pink;
+            background-color: rebeccapurple;
+          }
+        </style>
+        <button class="fancy svelte-hkfi0m">local count is 42</button>
+        <button>global count is 0</button>
+        <script type="module">
+          import("/src/lib/Counter.svelte").then((module) => {
+            const Component = module.default;
+            const target = document.getElementById("/lib/Counter");
+
+            let props = {};
+
+            if (target.firstElementChild?.tagName === "SCRIPT") {
+              props = JSON.parse(target.firstElementChild.textContent ?? "{}");
+              // ? server only prop option (idea)
+              // props.mode = "csr";
+            }
+
+            hydrate(Component, {
+              target,
+              props: props,
+            });
+          });
+        </script>
+      </div>
+
+      <!-- Counter Again -->
+      <div id="/lib/Counter[repeat]" style="display: contents">
+        <style>
+          .fancy.svelte-hkfi0m {
+            color: pink;
+            background-color: rebeccapurple;
+          }
+        </style>
+        <button class="fancy svelte-hkfi0m">local count is 42</button>
+        <button>global count is 0</button>
+        <script type="module">
+          import("/src/lib/Counter.svelte").then((module) => {
+            const Component = module.default;
+            const target = document.getElementById("/lib/Counter[repeat]");
+
+            let props = {};
+
+            if (target.firstElementChild?.tagName === "SCRIPT") {
+              props = JSON.parse(target.firstElementChild.textContent ?? "{}");
+              // ? server only prop option (idea)
+              // props.mode = "csr";
+            }
+
+            hydrate(Component, {
+              target,
+              props: props,
+            });
+          });
+        </script>
+      </div>
+
+      <!-- Counter2 -->
+      <div id="/lib/Counter2" style="display: contents">
+        <style>
+          .fancy.svelte-1f35gn7 {
+            color: orchid;
+            background-color: royalblue;
+          }
+        </style>
+        <button class="fancy svelte-1f35gn7">count is 42</button>
+        <script type="module">
+          import("/src/lib/Counter2.svelte").then((module) => {
+            const Component = module.default;
+            const target = document.getElementById("/lib/Counter2");
+
+            let props = {};
+
+            if (target.firstElementChild?.tagName === "SCRIPT") {
+              props = JSON.parse(target.firstElementChild.textContent ?? "{}");
+              // ? server only prop option (idea)
+              // props.mode = "csr";
+            }
+
+            hydrate(Component, {
+              target,
+              props: props,
+            });
+          });
+        </script>
+      </div>
+
+      <!-- Child of a same name -->
+      <div id="/lib/child/Counter" style="display: contents">
+        <style>
+          .fancy.svelte-joc1dw {
+            color: red;
+            background-color: blue;
+          }
+        </style>
+        <button class="fancy svelte-joc1dw">count is 42</button>
+        <script type="module">
+          import("/src/lib/child/Counter.svelte").then((module) => {
+            const Component = module.default;
+            const target = document.getElementById("/lib/child/Counter");
+
+            let props = {};
+
+            if (target.firstElementChild?.tagName === "SCRIPT") {
+              props = JSON.parse(target.firstElementChild.textContent ?? "{}");
+              // ? server only prop option (idea)
+              // props.mode = "csr";
+            }
+
+            hydrate(Component, {
+              target,
+              props: props,
+            });
+          });
+        </script>
+      </div>
+    </div>
+  </body>
+</html>
