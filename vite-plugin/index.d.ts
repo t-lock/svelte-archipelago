@@ -1,5 +1,7 @@
-import type { Plugin } from "vite";
+import type { Options, Plugin } from "vite";
 
-declare function frameworkPlugin(): Plugin<any>[];
+declare function frameworkPlugin(
+  pluginConfig?: Partial<Options>
+): Plugin<any>[];
 
 export default frameworkPlugin;

@@ -7,7 +7,7 @@
   "license": "MIT",
   "types": "index.t.ts",
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^4.0.2",
-    "vite": "^5.4.11"
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "vite": "^6.0.5"
   }
 }

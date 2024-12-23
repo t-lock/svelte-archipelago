@@ -1,21 +1,103 @@
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { resolve } from "path";
+import { readdirSync, statSync } from "fs";
+import { join, resolve } from "path";
 
-const frameworkPlugin = () => {
+const VIRTUAL_HYDRATE_ID = "\0virtual:hydrate";
+const VIRTUAL_ENTRY_ID = "\0virtual:archipelago-entry";
+
+const frameworkPlugin = (
+  options = {
+    srcPath: "./",
+  }
+) => {
   return [
-    process.env.NODE_ENV === "development" ? svelte() : svelteArchipelago(),
+    process.env.NODE_ENV === "development"
+      ? [...svelte(), svelteArchipelagoDev()]
+      : svelteArchipelagoBuild(options),
   ];
 };
 
 export default frameworkPlugin;
 
-function svelteArchipelago() {
+function svelteArchipelagoDev() {
+  return {
+    name: "vite-plugin-archipelago-hydrate",
+
+    resolveId(id) {
+      if (id === "/@hydrate") return VIRTUAL_HYDRATE_ID;
+    },
+
+    load(id) {
+      if (id === VIRTUAL_HYDRATE_ID) {
+        return `
+          import { hydrate } from "svelte";
+          window.hydrate = hydrate;
+       `;
+      }
+    },
+
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (req.url === "/@hydrate") {
+          res.setHeader("Content-Type", "application/javascript");
+          server
+            .transformRequest("/@hydrate")
+            .then((result) => {
+              if (result) res.end(result.code);
+            })
+            .catch(next);
+        } else {
+          next();
+        }
+      });
+    },
+  };
+}
+
+function svelteArchipelagoBuild(
+  options = {
+    srcPath: "./",
+  }
+) {
   let buildComplete = false;
+  let inputs;
 
   return {
     name: "vite-plugin-svelte-archipelago",
     enforce: "pre",
     apply: "build",
+
+    resolveId(id) {
+      if (id === VIRTUAL_ENTRY_ID) {
+        return id;
+      }
+    },
+
+    load(id) {
+      if (id === VIRTUAL_ENTRY_ID) {
+        const globPattern = `/${options?.srcPath ?? ""}/**/*.svelte`;
+        return `
+          import { hydrate } from "svelte";
+
+          if (typeof window !== "undefined") {
+            window.hydrate = hydrate;
+          }
+
+          if (typeof window === "undefined") {
+            const modules = import.meta.glob("${globPattern}");
+            Object.keys(modules).forEach((name) => import(name));
+          }
+        `;
+      }
+    },
+
+    configResolved(resolvedConfig) {
+      if (!inputs) {
+        inputs = getAllSvelteComponents(
+          `${resolvedConfig.root}/${options?.srcPath ?? ""}`
+        );
+      }
+    },
 
     async buildStart() {
       if (process.env.BUNDLE_TYPE || buildComplete) return;
@@ -36,7 +118,7 @@ function svelteArchipelago() {
           build: {
             minify: false,
             rollupOptions: {
-              input: "./src/main.ts",
+              input: VIRTUAL_ENTRY_ID,
               output: {
                 format: "esm",
                 chunkFileNames: ({ facadeModuleId }) => {
@@ -76,27 +158,19 @@ function svelteArchipelago() {
             ssr: true,
             minify: false,
             rollupOptions: {
-              input: "./src/main.ts",
+              input: inputs,
               output: {
                 dir: "dist-ssr",
                 format: "esm",
-                chunkFileNames: ({ facadeModuleId }) => {
-                  if (facadeModuleId) {
-                    const name = facadeModuleId
-                      .replace(resolve(process.cwd(), "src") + "/", "")
-                      .replace(".svelte", "");
-                    return `${name}.js`;
-                  } else {
-                    return `[name].js`;
-                  }
-                },
+                entryFileNames: "[name].js",
+                chunkFileNames: "[name].js",
               },
             },
           },
         });
 
         buildComplete = true;
-        console.log("✨ Dual Svelte bundles created successfully");
+        console.log("✨ Svelte Archipelago bundles created successfully");
       } catch (error) {
         console.error("Error creating bundles:", error);
         throw error;
@@ -112,4 +186,29 @@ function svelteArchipelago() {
       }
     },
   };
+}
+
+function getAllSvelteComponents(dir, fileList = []) {
+  const srcPath = resolve(dir);
+  const files = readdirSync(srcPath);
+  files.forEach((file) => {
+    const filePath = join(srcPath, file);
+    if (
+      statSync(filePath).isDirectory() &&
+      !filePath.includes("node_modules")
+    ) {
+      getAllSvelteComponents(filePath, fileList);
+    } else if (filePath.endsWith(".svelte")) {
+      fileList.push(filePath);
+    }
+  });
+
+  return fileList.reduce((acc, file) => {
+    const name = file
+      .replace(srcPath, "")
+      .replace(".svelte", "")
+      .replace("/", "");
+    acc[name] = file;
+    return acc;
+  }, {});
 }
