@@ -1,10 +1,10 @@
 <?php
 
-function svelteSSR($data = null) {
+function svelteSSR($component, $data = null) {
    $ch = curl_init(getenv('SVELTE_SSR_URL'));
    curl_setopt_array($ch, [
        CURLOPT_POST => true,
-       CURLOPT_POSTFIELDS => json_encode($data ?? ["server" => "true"]),
+       CURLOPT_POSTFIELDS => json_encode(["path" => $component, "props" => $data ?? ["server" => "true"]]),
        CURLOPT_RETURNTRANSFER => true,
        CURLOPT_HTTPHEADER => ['Content-Type: text/html']
    ]);
@@ -31,7 +31,7 @@ function stripSvelteComments(string $html): string {
 
 <?php
     try {
-        echo stripSvelteComments(svelteSSR());
+        echo stripSvelteComments(svelteSSR("/lib/Counter"));
     } catch (Exception $e) {
         echo $e->getMessage();
     }
