@@ -1,5 +1,5 @@
 import { p as proxy, a as append_styles, b as prop, s as state, c as set } from "../disclose-version.js";
-import { e as event, h as head, f as first_child, c as child, r as reset, s as sibling, t as template_effect, a as append, p as pop, g as get, b as template, d as delegate, $ as $window, n as next, i as push, j as set_text } from "../assets/_virtual_archipelago-entry-DhrI9oxy.js";
+import { e as event, h as head, f as first_child, c as child, r as reset, s as sibling, t as template_effect, a as append, p as pop, g as get, b as template, d as delegate, $ as $window, n as next, i as push, j as set_text } from "../assets/_virtual_archipelago-entry-LYX1rVle.js";
 const count = proxy({ value: 0 });
 function incrementLocal(_, count2) {
   set(count2, get(count2) + 1);

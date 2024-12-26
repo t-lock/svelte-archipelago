@@ -3,13 +3,22 @@ services:
     image: node:23-alpine
     working_dir: /usr/src/app
     volumes:
-      - ./node:/usr/src/app
+      - ./svelte-ssr:/usr/src/app
       - ./src:/var/www/html:ro # read-only access to PHP source files
-    command: sh -c "npm install && npm start"
+      - ../../ssr-service:/usr/src/svelte-archipelago-ssr-service # dev only
+    command: >
+      sh -c "
+        cd /usr/src/svelte-archipelago-ssr-service && npm link &&
+        cd /usr/src/app && npm link svelte-archipelago-ssr-service &&
+        npm install && npx svelte-archipelago-service
+      "
     networks:
       - lemp-network
     environment:
-      - SVELTE_SRC_PATH=/var/www/html/dist-ssr
+      - BACKEND_FS_ROOT=/var/www/html #REQUIRED
+      # default - SVELTE_SRC_PATH=/svelte
+      # default - SVELTE_DEV_SERVER_URL=http://localhost:5173
+      - SVELTE_MODE=development # defaults to "production"
 
   nginx:
     image: nginx:alpine

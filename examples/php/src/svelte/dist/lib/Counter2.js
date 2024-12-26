@@ -1,5 +1,5 @@
 import { a as append_styles, b as prop, s as state, p as proxy, c as set } from "../disclose-version.js";
-import { e as event, h as head, c as child, r as reset, t as template_effect, a as append, g as get, b as template, d as delegate, $ as $window, n as next, j as set_text } from "../assets/_virtual_archipelago-entry-DhrI9oxy.js";
+import { e as event, h as head, c as child, r as reset, t as template_effect, a as append, g as get, b as template, d as delegate, $ as $window, n as next, j as set_text } from "../assets/_virtual_archipelago-entry-LYX1rVle.js";
 const increment = (_, count) => {
   set(count, get(count) + 1);
 };

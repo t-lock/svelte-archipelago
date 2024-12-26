@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "svelte-archipelago-ssr-service": "*"
+  }
+}

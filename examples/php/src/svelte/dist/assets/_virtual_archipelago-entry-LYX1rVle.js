@@ -1447,7 +1447,7 @@ if (typeof window !== "undefined") {
   window.hydrate = hydrate;
 }
 if (typeof window === "undefined") {
-  const modules = /* @__PURE__ */ Object.assign({ "/src/lib/Counter.svelte": () => __vitePreload(() => import("../lib/Counter.js"), true ? __vite__mapDeps([0,1]) : void 0), "/src/lib/Counter2.svelte": () => __vitePreload(() => import("../lib/Counter2.js"), true ? __vite__mapDeps([2,1]) : void 0), "/src/lib/child/Counter.svelte": () => __vitePreload(() => import("../lib/child/Counter.js"), true ? __vite__mapDeps([3,1]) : void 0) });
+  const modules = /* @__PURE__ */ Object.assign({ "/lib/Counter.svelte": () => __vitePreload(() => import("../lib/Counter.js"), true ? __vite__mapDeps([0,1]) : void 0), "/lib/Counter2.svelte": () => __vitePreload(() => import("../lib/Counter2.js"), true ? __vite__mapDeps([2,1]) : void 0), "/lib/child/Counter.svelte": () => __vitePreload(() => import("../lib/child/Counter.js"), true ? __vite__mapDeps([3,1]) : void 0) });
   Object.keys(modules).forEach((name) => import(name));
 }
 export {

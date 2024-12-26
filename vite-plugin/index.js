@@ -39,6 +39,7 @@ function svelteArchipelagoDev() {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         if (req.url === "/@hydrate") {
+          res.setHeader("Access-Control-Allow-Origin", "*");
           res.setHeader("Content-Type", "application/javascript");
           server
             .transformRequest("/@hydrate")
@@ -124,7 +125,10 @@ function svelteArchipelagoBuild(
                 chunkFileNames: ({ facadeModuleId }) => {
                   if (facadeModuleId) {
                     const name = facadeModuleId
-                      .replace(resolve(process.cwd(), "src") + "/", "")
+                      .replace(
+                        resolve(process.cwd(), options.srcPath) + "/",
+                        ""
+                      )
                       .replace(".svelte", "");
                     // ! use hash in final version
                     // (requires ssr map, but gives browser cache invalidation)
