@@ -1,0 +1,12 @@
+{
+  "name": "create-svelte-archipelago",
+  "version": "0.0.3",
+  "description": "Scaffold your Svelte Archipelago project frontend",
+  "type": "module",
+  "bin": {
+    "create-svelte-archipelago": "./cli.js"
+  },
+  "dependencies": {
+    "degit": "^2.8.4"
+  }
+}
