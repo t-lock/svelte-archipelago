@@ -1,12 +1,8 @@
 services:
   sveltessr:
-    image: node:23-alpine
-    working_dir: /usr/src/app
+    image: tlockaob/svelte-archipelago-ssr-service
     volumes:
-      - ./svelte-ssr:/usr/src/app
       - ./src:/var/www/html:ro # read-only access to PHP source files
-    command: >
-      sh -c "npm install @tlock/svelte-archipelago-ssr-service && npx svelte-archipelago-service"
     networks:
       - lemp-network
     environment:

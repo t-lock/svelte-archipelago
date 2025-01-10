@@ -1,7 +1,0 @@
-{
-  "type": "module",
-  "dependencies": {
-    "@tlock/svelte-archipelago-ssr-service": "^0.0.1",
-    "svelte-archipelago-ssr-service": "*"
-  }
-}

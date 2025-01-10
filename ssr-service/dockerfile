@@ -1,0 +1,15 @@
+FROM node:23-alpine
+
+WORKDIR /usr/src/app
+
+# Install the SSR service
+RUN npm install -g @tlock/svelte-archipelago-ssr-service
+
+# Default environment variables
+ENV SVELTE_SRC_PATH=/svelte
+ENV SVELTE_DEV_SERVER_URL=http://localhost:5173
+ENV SVELTE_MODE=production
+
+EXPOSE 3000
+
+CMD ["svelte-archipelago-service"]
