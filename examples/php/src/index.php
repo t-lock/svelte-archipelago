@@ -1,6 +1,7 @@
 <?php
+session_start();
 
-function svelteSSR(string $component, array $data = null): mixed {
+function svelte_ssr(string $component, array $data = null): mixed {
    $ch = curl_init(getenv('SVELTE_SSR_URL'));
    curl_setopt_array($ch, [
        CURLOPT_POST => true,
@@ -10,6 +11,21 @@ function svelteSSR(string $component, array $data = null): mixed {
    ]);
    return curl_exec($ch);
 }
+
+function receive_client_state() {
+    $state = file_get_contents('php://input');
+
+    try {
+        $_SESSION['game_state'] = json_decode($state);
+        http_response_code(200);
+    } catch (\Throwable $th) {
+        http_response_code(500);
+    }
+
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') receive_client_state();
 
 ?>
 
@@ -22,16 +38,17 @@ function svelteSSR(string $component, array $data = null): mixed {
 </head>
 <body>
 
+<div>
 <?php
     try {
-        echo svelteSSR("/lib/Counter");
-        echo svelteSSR("/lib/Counter", ["initialCount" => 99]);
-        echo svelteSSR("/lib/Counter2");
-        echo svelteSSR("/lib/child/Counter");
+        $game_state = $_SESSION["game_state"] ?? null;
+        $props = $game_state ? ["initialState" => $_SESSION["game_state"]] : null;
+        echo svelte_ssr("/lib/Puzzle", $props);
     } catch (Exception $e) {
         echo $e->getMessage();
     }
 ?>
+</div>
 
 </body>
 </html>
