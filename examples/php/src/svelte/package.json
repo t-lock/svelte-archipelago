@@ -9,13 +9,14 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tlock/vite-plugin-svelte-archipelago": "^0.0.4",
     "@tsconfig/svelte": "^5.0.4",
     "@types/node": "^20.14.11",
-    "svelte": "^5.15.0",
+    "svelte": "^5.17.3",
     "svelte-check": "^4.1.1",
     "tslib": "^2.8.1",
     "typescript": "^5.7.2",
-    "vite": "^6.0.5",
-    "vite-plugin-svelte-archipelago": "*"
+    "vite": "^6.0.7"
   }
 }

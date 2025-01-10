@@ -5,13 +5,8 @@ services:
     volumes:
       - ./svelte-ssr:/usr/src/app
       - ./src:/var/www/html:ro # read-only access to PHP source files
-      - ../../ssr-service:/usr/src/svelte-archipelago-ssr-service # dev only
     command: >
-      sh -c "
-        cd /usr/src/svelte-archipelago-ssr-service && npm link &&
-        cd /usr/src/app && npm link svelte-archipelago-ssr-service &&
-        npm install && npx svelte-archipelago-service
-      "
+      sh -c "npm install @tlock/svelte-archipelago-ssr-service && npx svelte-archipelago-service"
     networks:
       - lemp-network
     environment:
