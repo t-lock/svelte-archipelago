@@ -1,5 +1,5 @@
 {
-  "name": "svelte-archipelago-ssr-service",
+  "name": "@tlock/svelte-archipelago-ssr-service",
   "version": "0.0.1",
   "description": "Svelte SSR as a local microservice",
   "type": "module",
@@ -15,7 +15,7 @@
   "scripts": {
     "start": "node -C production bin/cli.js"
   },
-  "author": "t-lock",
+  "author": "tlock",
   "license": "MIT",
   "dependencies": {
     "svelte": "^5.3.1"
