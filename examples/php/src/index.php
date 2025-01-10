@@ -1,6 +1,6 @@
 <?php
 
-function svelteSSR($component, $data = null) {
+function svelteSSR(string $component, array $data = null): mixed {
    $ch = curl_init(getenv('SVELTE_SSR_URL'));
    curl_setopt_array($ch, [
        CURLOPT_POST => true,

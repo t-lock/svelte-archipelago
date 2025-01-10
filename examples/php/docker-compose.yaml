@@ -9,7 +9,7 @@ services:
       - BACKEND_FS_ROOT=/var/www/html #REQUIRED
       # default - SVELTE_SRC_PATH=/svelte
       # default - SVELTE_DEV_SERVER_URL=http://localhost:5173
-      - SVELTE_MODE=development # defaults to "production"
+      - SVELTE_MODE=${SVELTE_MODE:-production} # defaults to 'production' if not set
 
   nginx:
     image: nginx:alpine
